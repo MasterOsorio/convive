@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+	<!-- indica a spring que imprima en pantalla un log diario en consola -->
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<!-- enconders are assigned the type classic.enconder.PatternLayoutEnconder 
+			by default -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- indica a spring que cree un log diario y que al final del dia lo comprima -->
+	<appender name="dailyRollingFileAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<file>${catalina.home}/logs/convive.log</file>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${catalina.home}/logs/shinback.%d{dd-MM-yyyy}.zip</FileNamePattern>
+		</rollingPolicy>
+
+		<enconder>
+			<Pattern>%d{HH:mm:ss.SSS} %[thread] %-5level %logger{35} - %msn %n</Pattern>
+		</enconder>
+	</appender>
+
+	<!-- <logger name="org.hibernate.SQL" lever="INFO" /> -->
+	<!-- level pone el nivel de log -->
+	<logger name="com.bit" level="INFO" />
+	
+	<!-- <logger name="logging.level.org.springframework.security.web.FilterChainProxy" 
+		lever="DEBUG"/> -->
+
+	<root level="INFO">
+		<appender-ref ref="dailyRollingFileAppender" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
