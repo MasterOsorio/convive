@@ -1,5 +1,8 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,6 +45,9 @@ public class Habitante {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_habitante", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "id_tipo_habitante", foreignKey = @ForeignKey(name = "fk_id_tipo_habitante"))
 	private CatalogoTipoHabitante catalogoTipoHabitante;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "habitante", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TelefonoHabitante> telefonos = new ArrayList<>() ;
 
 	public Integer getId() {
 		return id;
@@ -97,5 +103,26 @@ public class Habitante {
 
 	public void setCatalogoTipoHabitante(CatalogoTipoHabitante catalogoTipoHabitante) {
 		this.catalogoTipoHabitante = catalogoTipoHabitante;
+	}
+
+	public List<TelefonoHabitante> getTelefonos() {
+		return telefonos;
+	}
+
+	public void setTelefonos(List<TelefonoHabitante> telefonos) {
+		this.telefonos = telefonos;
+	}
+	
+	/*
+	 * Helper methods
+	 */
+	public void addTelefono(TelefonoHabitante telefono) {
+		telefonos.add( telefono );
+		telefono.setHabitante( this );
+	}
+
+	public void removePhone(TelefonoHabitante telefono) {
+		telefonos.remove( telefono );
+		telefono.setHabitante( null );
 	}
 }

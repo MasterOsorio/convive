@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -40,8 +41,8 @@ public class TelefonoHabitante {
 	@JoinColumn(name = "id_tipo_telefono", foreignKey = @ForeignKey(name = "fk_telefono_hab_id_tipo_telefono"))
 	private CatalogoTipoTelefono catalogoTipoTelefono;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "habitante", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "id_habitante", foreignKey = @ForeignKey(name = "fk_telefono_id_habitante"))
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_habitante", foreignKey = @ForeignKey( name = "fk_telefono_id_habitante" ))
 	private Habitante habitante;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "familiar", cascade = CascadeType.ALL, orphanRemoval = true)
