@@ -1,14 +1,15 @@
 package com.bit.model.entities;
 
-import java.util.Date;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -36,17 +37,17 @@ public class Movimiento {
 	private String iva;
 
 	@Column(name = "fecha_captura")
-	private Date fechaCaptura;
+	private java.time.LocalDate fechaCaptura;
 
 	@Column(name = "fecha_movimiento")
 	private String fechaMovimiento;
 
-	@ManyToOne
-	@JoinColumn(name = "id_tipo", referencedColumnName = "id")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_movimiento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "id_tipo", foreignKey = @ForeignKey(name = "fk_id_tipo_movimiento"))
 	private CatalogoTipoMovimiento catalogoTipoMovimiento;
 
-	@ManyToOne
-	@JoinColumn(name = "id_proveedor", referencedColumnName = "id")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "id_proveedor", foreignKey = @ForeignKey(name = "fk_id_proveedor_movimiento"))
 	private Proveedor proveedor;
 
 	public Integer getId() {
@@ -89,11 +90,11 @@ public class Movimiento {
 		this.iva = iva;
 	}
 
-	public Date getFechaCaptura() {
+	public java.time.LocalDate getFechaCaptura() {
 		return fechaCaptura;
 	}
 
-	public void setFechaCaptura(Date fechaCaptura) {
+	public void setFechaCaptura(java.time.LocalDate fechaCaptura) {
 		this.fechaCaptura = fechaCaptura;
 	}
 

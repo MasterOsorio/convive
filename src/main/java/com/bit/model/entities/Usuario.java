@@ -1,13 +1,15 @@
 package com.bit.model.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -43,8 +45,8 @@ public class Usuario {
 	@Column(name = "fotografia")
 	private String fotografiaPath;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_area", referencedColumnName = "id")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_area", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "id_area", foreignKey = @ForeignKey(name = "fk_id_area"))
 	private CatalogoArea catalogoArea;
 
 	public void setId(Integer id) {

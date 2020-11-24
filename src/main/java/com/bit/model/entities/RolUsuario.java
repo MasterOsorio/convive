@@ -1,10 +1,14 @@
 package com.bit.model.entities;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,15 +18,17 @@ public class RolUsuario {
 	public RolUsuario() {
 
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@Column(name = "id_usuario")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "id_usuario", foreignKey = @ForeignKey(name = "fk_id_usuario"))
 	private int idUsuario;
-	
-	@Column(name = "id_rol")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "id_rol", foreignKey = @ForeignKey(name = "fk_id_rol"))
 	private int idRol;
 
 	public int getId() {
