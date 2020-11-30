@@ -46,6 +46,9 @@ public class Proveedor {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Movimiento> movimientos = new ArrayList<>();
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ContactoProveedor> contactos = new ArrayList<>();
+
 	public Integer getId() {
 		return id;
 	}
@@ -110,6 +113,14 @@ public class Proveedor {
 		this.movimientos = movimientos;
 	}
 
+	public List<ContactoProveedor> getContactos() {
+		return contactos;
+	}
+
+	public void setContactos(List<ContactoProveedor> contactos) {
+		this.contactos = contactos;
+	}
+
 	/*
 	 * Helper Methods
 	 */
@@ -142,5 +153,15 @@ public class Proveedor {
 	public void removeMovimiento(Movimiento movimiento) {
 		movimientos.remove(movimiento);
 		movimiento.setProveedor(null);
+	}
+
+	public void addContactoProveedor(ContactoProveedor contactoProveedor) {
+		contactos.add(contactoProveedor);
+		contactoProveedor.setProveedor(this);
+	}
+
+	public void removeContactoProveedor(ContactoProveedor contactoProveedor) {
+		contactos.remove(contactoProveedor);
+		contactoProveedor.setProveedor(null);
 	}
 }
