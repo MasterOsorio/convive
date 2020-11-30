@@ -44,6 +44,9 @@ public class Torre {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "torre", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Imagenes> imagenTorres = new ArrayList<>();
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "torre", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Amenidad> amenidadTorres = new ArrayList<>();
+
 	public Integer getId() {
 		return id;
 	}
@@ -92,6 +95,14 @@ public class Torre {
 		this.imagenTorres = imagenTorres;
 	}
 
+	public List<Amenidad> getAmenidadTorres() {
+		return amenidadTorres;
+	}
+
+	public void setAmenidadTorres(List<Amenidad> amenidadTorres) {
+		this.amenidadTorres = amenidadTorres;
+	}
+
 	/*
 	 * Helper Methods
 	 */
@@ -104,5 +115,15 @@ public class Torre {
 	public void removeImagenes(Imagenes imagenes) {
 		imagenTorres.remove(imagenes);
 		imagenes.setTorre(null);
+	}
+
+	public void addAmenidad(Amenidad amenidad) {
+		amenidadTorres.add(amenidad);
+		amenidad.setTorre(this);
+	}
+
+	public void removeAmenidad(Amenidad amenidad) {
+		amenidadTorres.remove(amenidad);
+		amenidad.setTorre(null);
 	}
 }
