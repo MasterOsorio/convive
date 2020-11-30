@@ -1,6 +1,5 @@
 package com.bit.model.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -42,11 +41,11 @@ public class Movimiento {
 	@Column(name = "fecha_movimiento")
 	private String fechaMovimiento;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_movimiento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_tipo", foreignKey = @ForeignKey(name = "fk_id_tipo_movimiento"))
 	private CatalogoTipoMovimiento catalogoTipoMovimiento;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_proveedor", foreignKey = @ForeignKey(name = "fk_id_proveedor_movimiento"))
 	private Proveedor proveedor;
 

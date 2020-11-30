@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -42,12 +43,18 @@ public class Habitante {
 	@Column(name = "numero_mascotas")
 	private int numeroMascotas;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_habitante", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_tipo_habitante", foreignKey = @ForeignKey(name = "fk_id_tipo_habitante"))
 	private CatalogoTipoHabitante catalogoTipoHabitante;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "habitante", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<TelefonoHabitante> telefonos = new ArrayList<>() ;
+	private List<TelefonoHabitante> telefonos = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "habitante", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Familiar> familiares = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "habitante", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Departamento> departamentos = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -112,17 +119,54 @@ public class Habitante {
 	public void setTelefonos(List<TelefonoHabitante> telefonos) {
 		this.telefonos = telefonos;
 	}
-	
+
+	public List<Familiar> getFamiliares() {
+		return familiares;
+	}
+
+	public void setFamiliares(List<Familiar> familiares) {
+		this.familiares = familiares;
+	}
+
+	public List<Departamento> getDepartamentos() {
+		return departamentos;
+	}
+
+	public void setDepartamentos(List<Departamento> departamentos) {
+		this.departamentos = departamentos;
+	}
+
 	/*
 	 * Helper methods
 	 */
+
 	public void addTelefono(TelefonoHabitante telefono) {
-		telefonos.add( telefono );
-		telefono.setHabitante( this );
+		telefonos.add(telefono);
+		telefono.setHabitante(this);
 	}
 
 	public void removePhone(TelefonoHabitante telefono) {
-		telefonos.remove( telefono );
-		telefono.setHabitante( null );
+		telefonos.remove(telefono);
+		telefono.setHabitante(null);
+	}
+
+	public void addFamiliar(Familiar familiar) {
+		familiares.add(familiar);
+		familiar.setHabitante(this);
+	}
+
+	public void removeFamiliar(Familiar familiar) {
+		familiares.remove(familiar);
+		familiar.setHabitante(null);
+	}
+
+	public void addDepartamento(Departamento departamento) {
+		departamentos.add(departamento);
+		departamento.setHabitante(this);
+	}
+
+	public void removeDepartamento(Departamento departamento) {
+		departamentos.remove(departamento);
+		departamento.setHabitante(null);
 	}
 }

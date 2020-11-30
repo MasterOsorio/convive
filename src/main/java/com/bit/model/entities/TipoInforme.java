@@ -1,10 +1,16 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +28,9 @@ public class TipoInforme {
 	@Column(name = "tipo_informe")
 	private String tipoInforme;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipo_informe", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Pago> pagos = new ArrayList<>();
+
 	public Integer getId() {
 		return id;
 	}
@@ -36,5 +45,27 @@ public class TipoInforme {
 
 	public void setTipoInforme(String tipoInforme) {
 		this.tipoInforme = tipoInforme;
+	}
+
+	public List<Pago> getPagos() {
+		return pagos;
+	}
+
+	public void setPagos(List<Pago> pagos) {
+		this.pagos = pagos;
+	}
+
+	/*
+	 * Helper Methods
+	 */
+
+	public void addPago(Pago pago) {
+		pagos.add(pago);
+		pago.setTipoInforme(this);
+	}
+
+	public void removePago(Pago pago) {
+		pagos.remove(pago);
+		pago.setTipoInforme(null);
 	}
 }

@@ -1,5 +1,8 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -33,7 +37,7 @@ public class Condominio {
 	@Column(name = "imagen_logo")
 	private String imagenLogo;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "reglamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_reglamento", foreignKey = @ForeignKey(name = "fk_id_reglamento"))
 	private Reglamento reglamento;
 
@@ -51,6 +55,15 @@ public class Condominio {
 
 	@Column(name = "num_sotanos")
 	private String numSotanos;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Torre> torres = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Imagenes> imagenesCondominio = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TelefonoCondominio> condominioTelefonos = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -130,5 +143,63 @@ public class Condominio {
 
 	public void setNumSotanos(String numSotanos) {
 		this.numSotanos = numSotanos;
+	}
+
+	public List<Torre> getTorres() {
+		return torres;
+	}
+
+	public void setTorres(List<Torre> torres) {
+		this.torres = torres;
+	}
+
+	public List<Imagenes> getImagenesCondominio() {
+		return imagenesCondominio;
+	}
+
+	public void setImagenesCondominio(List<Imagenes> imagenesCondominio) {
+		this.imagenesCondominio = imagenesCondominio;
+	}
+
+	public List<TelefonoCondominio> getCondominioTelefonos() {
+		return condominioTelefonos;
+	}
+
+	public void setCondominioTelefonos(List<TelefonoCondominio> condominioTelefonos) {
+		this.condominioTelefonos = condominioTelefonos;
+	}
+
+	/*
+	 * Helper Methods
+	 */
+
+	public void addTorre(Torre torre) {
+		torres.add(torre);
+		torre.setCondominio(this);
+	}
+
+	public void removeTorre(Torre torre) {
+		torres.remove(torre);
+		torre.setCondominio(null);
+	}
+
+	public void addImagenesCondominio(Imagenes imagenes) {
+		imagenesCondominio.add(imagenes);
+		imagenes.setCondominio(this);
+	}
+
+	public void removeImagenesCondominio(Imagenes imagenes) {
+		imagenesCondominio.add(imagenes);
+		imagenes.setCondominio(null);
+	}
+
+	public void addCondominioTelefonos(TelefonoCondominio telefonoCondominio) {
+		condominioTelefonos.add(telefonoCondominio);
+		telefonoCondominio.setCondominio(this);
+	}
+
+	public void removeCondominioTelefonos(TelefonoCondominio telefonoCondominio) {
+		condominioTelefonos.remove(telefonoCondominio);
+		telefonoCondominio.setCondominio(null);
 	}
 }

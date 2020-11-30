@@ -1,5 +1,8 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,7 +34,7 @@ public class Departamento {
 	@Column
 	private String descripcion;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_departamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_tipo_departamento", foreignKey = @ForeignKey(name = "fk_id_tipo_departamento"))
 	private CatalogoTipoDepartamento catalogoTipoDepartamento;
 
@@ -40,7 +44,7 @@ public class Departamento {
 	@Column(name = "cuenta_contable")
 	private String cuentaContable;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "torre", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_torre", foreignKey = @ForeignKey(name = "fk_id_torre_departamento"))
 	private Torre torre;
 
@@ -53,9 +57,27 @@ public class Departamento {
 	@Column
 	private String ubicacion;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "habitante", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_habitante", foreignKey = @ForeignKey(name = "fk_id_habitante_departamento"))
 	private Habitante habitante;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "departamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<RespuestaDepartamento> respuestas = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "departamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Estacionamiento> estacionamientos = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "departamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Reservacion> reservaciones = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "departamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Comentario> comentarios = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "departamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Visita> visitas = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "departamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<NotificacionEvento> notificacionesDepartamento = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -143,5 +165,117 @@ public class Departamento {
 
 	public void setHabitante(Habitante habitante) {
 		this.habitante = habitante;
+	}
+
+	public List<RespuestaDepartamento> getRespuestas() {
+		return respuestas;
+	}
+
+	public void setRespuestas(List<RespuestaDepartamento> respuestas) {
+		this.respuestas = respuestas;
+	}
+
+	public List<Estacionamiento> getEstacionamientos() {
+		return estacionamientos;
+	}
+
+	public void setEstacionamientos(List<Estacionamiento> estacionamientos) {
+		this.estacionamientos = estacionamientos;
+	}
+
+	public List<Reservacion> getReservaciones() {
+		return reservaciones;
+	}
+
+	public void setReservaciones(List<Reservacion> reservaciones) {
+		this.reservaciones = reservaciones;
+	}
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+
+	public List<Visita> getVisitas() {
+		return visitas;
+	}
+
+	public void setVisitas(List<Visita> visitas) {
+		this.visitas = visitas;
+	}
+
+	public List<NotificacionEvento> getNotificacionesDepartamento() {
+		return notificacionesDepartamento;
+	}
+
+	public void setNotificacionesDepartamento(List<NotificacionEvento> notificacionesDepartamento) {
+		this.notificacionesDepartamento = notificacionesDepartamento;
+	}
+
+	/*
+	 * Helper Methods
+	 */
+
+	public void addRespuestaDepartamento(RespuestaDepartamento respuestaDepartamento) {
+		respuestas.add(respuestaDepartamento);
+		respuestaDepartamento.setDepartamento(this);
+	}
+
+	public void removeRespuestaDepartamento(RespuestaDepartamento respuestaDepartamento) {
+		respuestas.remove(respuestaDepartamento);
+		respuestaDepartamento.setDepartamento(null);
+	}
+
+	public void addEstacionamiento(Estacionamiento estacionamiento) {
+		estacionamientos.add(estacionamiento);
+		estacionamiento.setDepartamento(this);
+	}
+
+	public void removeEstacionamiento(Estacionamiento estacionamiento) {
+		estacionamientos.remove(estacionamiento);
+		estacionamiento.setDepartamento(null);
+	}
+
+	public void addReservacion(Reservacion reservacion) {
+		reservaciones.add(reservacion);
+		reservacion.setDepartamento(this);
+	}
+
+	public void removeReservacion(Reservacion reservacion) {
+		reservaciones.remove(reservacion);
+		reservacion.setDepartamento(null);
+	}
+
+	public void addComentario(Comentario comentario) {
+		comentarios.add(comentario);
+		comentario.setDepartamento(this);
+	}
+
+	public void removeComentario(Comentario comentario) {
+		comentarios.remove(comentario);
+		comentario.setDepartamento(null);
+	}
+
+	public void addVisita(Visita visita) {
+		visitas.add(visita);
+		visita.setDepartamento(this);
+	}
+
+	public void removeVisita(Visita visita) {
+		visitas.remove(visita);
+		visita.setDepartamento(null);
+	}
+
+	public void addNotificacionEvento(NotificacionEvento notificacionEvento) {
+		notificacionesDepartamento.add(notificacionEvento);
+		notificacionEvento.setDepartamento(this);
+	}
+
+	public void removeNotificacionEvento(NotificacionEvento notificacionEvento) {
+		notificacionesDepartamento.add(notificacionEvento);
+		notificacionEvento.setDepartamento(null);
 	}
 }

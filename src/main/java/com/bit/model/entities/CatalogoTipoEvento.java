@@ -1,10 +1,16 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +28,9 @@ public class CatalogoTipoEvento {
 	@Column
 	private String tipo;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_evento", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Evento> eventos = new ArrayList<>();
+
 	public Integer getId() {
 		return id;
 	}
@@ -36,5 +45,27 @@ public class CatalogoTipoEvento {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
+	}
+
+	/*
+	 * Helper Methods
+	 */
+
+	public void addEvento(Evento evento) {
+		eventos.add(evento);
+		evento.setCatalogoTipoEvento(this);
+	}
+
+	public void removeEvento(Evento evento) {
+		eventos.remove(evento);
+		evento.setCatalogoTipoEvento(null);
 	}
 }

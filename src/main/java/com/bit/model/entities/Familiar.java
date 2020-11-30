@@ -1,5 +1,8 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -33,9 +37,12 @@ public class Familiar {
 	@Column(name = "apellido_materno")
 	private String apellidoMaterno;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "habitante", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_habitante", foreignKey = @ForeignKey(name = "fk_id_habitante"))
 	private Habitante habitante;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "familiar", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TelefonoHabitante> telefonoHabitantes = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -75,5 +82,27 @@ public class Familiar {
 
 	public void setHabitante(Habitante habitante) {
 		this.habitante = habitante;
+	}
+
+	public List<TelefonoHabitante> getTelefonoHabitantes() {
+		return telefonoHabitantes;
+	}
+
+	public void setTelefonoHabitantes(List<TelefonoHabitante> telefonoHabitantes) {
+		this.telefonoHabitantes = telefonoHabitantes;
+	}
+
+	/*
+	 * Helper Methods
+	 */
+
+	public void addTelefonoHabitante(TelefonoHabitante telefonoHabitante) {
+		telefonoHabitantes.add(telefonoHabitante);
+		telefonoHabitante.setFamiliar(this);
+	}
+
+	public void removeTelefonoHabitante(TelefonoHabitante telefonoHabitante) {
+		telefonoHabitantes.remove(telefonoHabitante);
+		telefonoHabitante.setFamiliar(null);
 	}
 }

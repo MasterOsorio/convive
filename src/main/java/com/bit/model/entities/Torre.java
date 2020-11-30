@@ -1,5 +1,8 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -33,9 +37,12 @@ public class Torre {
 	@Column(name = "num_deptos")
 	private int numDeptos;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_condominio", foreignKey = @ForeignKey(name = "fk_id_condominio"))
 	private Condominio condominio;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "torre", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Imagenes> imagenTorres = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -75,5 +82,27 @@ public class Torre {
 
 	public void setCondominio(Condominio condominio) {
 		this.condominio = condominio;
+	}
+
+	public List<Imagenes> getImagenTorres() {
+		return imagenTorres;
+	}
+
+	public void setImagenTorres(List<Imagenes> imagenTorres) {
+		this.imagenTorres = imagenTorres;
+	}
+
+	/*
+	 * Helper Methods
+	 */
+
+	public void addImagenes(Imagenes imagenes) {
+		imagenTorres.add(imagenes);
+		imagenes.setTorre(this);
+	}
+
+	public void removeImagenes(Imagenes imagenes) {
+		imagenTorres.remove(imagenes);
+		imagenes.setTorre(null);
 	}
 }

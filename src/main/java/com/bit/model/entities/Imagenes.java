@@ -1,6 +1,5 @@
 package com.bit.model.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,15 +29,15 @@ public class Imagenes {
 	@Column
 	private String descripcion;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_condominio", foreignKey = @ForeignKey(name = "fk_imagen_id_condominio"))
 	private Condominio condominio;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "amenidad", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_amenidad", foreignKey = @ForeignKey(name = "fk_imagen_id_amenidad"))
 	private Amenidad amenidad;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "torre", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_torre", foreignKey = @ForeignKey(name = "fk_imagen_id_torre"))
 	private Torre torre;
 

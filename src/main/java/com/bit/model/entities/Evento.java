@@ -1,5 +1,8 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -39,12 +43,18 @@ public class Evento {
 	@Column(name = "fecha_expiracion")
 	private java.time.LocalDate fechaExpiracion;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_evento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_tipo_evento", foreignKey = @ForeignKey(name = "fk_id_tipo_evento"))
 	private CatalogoTipoEvento catalogoTipoEvento;
 
 	@Column(name = "requiere_confirmacion")
 	private boolean requiereConfirmacion;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Encuesta> encuestas = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<NotificacionEvento> notificaciones = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -108,5 +118,45 @@ public class Evento {
 
 	public void setRequiereConfirmacion(boolean requiereConfirmacion) {
 		this.requiereConfirmacion = requiereConfirmacion;
+	}
+
+	public List<Encuesta> getEncuestas() {
+		return encuestas;
+	}
+
+	public void setEncuestas(List<Encuesta> encuestas) {
+		this.encuestas = encuestas;
+	}
+
+	public List<NotificacionEvento> getNotificaciones() {
+		return notificaciones;
+	}
+
+	public void setNotificaciones(List<NotificacionEvento> notificaciones) {
+		this.notificaciones = notificaciones;
+	}
+
+	/*
+	 * Helper Methods
+	 */
+
+	public void addEncuesta(Encuesta encuesta) {
+		encuestas.add(encuesta);
+		encuesta.setEvento(this);
+	}
+
+	public void removeEncuesta(Encuesta encuesta) {
+		encuestas.remove(encuesta);
+		encuesta.setEvento(null);
+	}
+
+	public void addNotificacionEvento(NotificacionEvento notificacionEvento) {
+		notificaciones.add(notificacionEvento);
+		notificacionEvento.setEvento(null);
+	}
+
+	public void removeNotificacionEvento(NotificacionEvento notificacionEvento) {
+		notificaciones.remove(notificacionEvento);
+		notificacionEvento.setEvento(null);
 	}
 }

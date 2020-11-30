@@ -1,10 +1,16 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +30,9 @@ public class CatalogoTipoDepartamento {
 
 	@Column
 	private String descripcion;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_departamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Departamento> departamentosCatalogo = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -47,5 +56,27 @@ public class CatalogoTipoDepartamento {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public List<Departamento> getDepartamentosCatalogo() {
+		return departamentosCatalogo;
+	}
+
+	public void setDepartamentosCatalogo(List<Departamento> departamentosCatalogo) {
+		this.departamentosCatalogo = departamentosCatalogo;
+	}
+
+	/*
+	 * Helper Methods
+	 */
+
+	public void addDepartamento(Departamento departamento) {
+		departamentosCatalogo.add(departamento);
+		departamento.setCatalogoTipoDepartamento(this);
+	}
+
+	public void removeDepartamento(Departamento departamento) {
+		departamentosCatalogo.remove(departamento);
+		departamento.setCatalogoTipoDepartamento(null);
 	}
 }

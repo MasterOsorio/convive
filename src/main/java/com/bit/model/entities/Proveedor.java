@@ -1,35 +1,50 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "proveedor")
 public class Proveedor {
-	
+
 	public Proveedor() {
-		
+
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column
 	private String nombre;
-	
+
 	@Column
 	private String servicio;
-	
+
 	@Column
 	private String rfc;
-	
+
 	@Column
 	private String giro;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<DireccionProveedor> direccionProveedores = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TelefonoProveedor> telefonoProveedores = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Movimiento> movimientos = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -69,5 +84,63 @@ public class Proveedor {
 
 	public void setGiro(String giro) {
 		this.giro = giro;
+	}
+
+	public List<DireccionProveedor> getDireccionProveedores() {
+		return direccionProveedores;
+	}
+
+	public void setDireccionProveedores(List<DireccionProveedor> direccionProveedores) {
+		this.direccionProveedores = direccionProveedores;
+	}
+
+	public List<TelefonoProveedor> getTelefonoProveedores() {
+		return telefonoProveedores;
+	}
+
+	public void setTelefonoProveedores(List<TelefonoProveedor> telefonoProveedores) {
+		this.telefonoProveedores = telefonoProveedores;
+	}
+
+	public List<Movimiento> getMovimientos() {
+		return movimientos;
+	}
+
+	public void setMovimientos(List<Movimiento> movimientos) {
+		this.movimientos = movimientos;
+	}
+
+	/*
+	 * Helper Methods
+	 */
+
+	public void addDireccionProveedor(DireccionProveedor direccionProveedor) {
+		direccionProveedores.add(direccionProveedor);
+		direccionProveedor.setProveedor(this);
+	}
+
+	public void removeDireccionProveedor(DireccionProveedor direccionProveedor) {
+		direccionProveedores.remove(direccionProveedor);
+		direccionProveedor.setProveedor(null);
+	}
+
+	public void addTelefonoProveedor(TelefonoProveedor telefonoProveedor) {
+		telefonoProveedores.add(telefonoProveedor);
+		telefonoProveedor.setProveedor(this);
+	}
+
+	public void removeTelefonoProveedor(TelefonoProveedor telefonoProveedor) {
+		telefonoProveedores.remove(telefonoProveedor);
+		telefonoProveedor.setProveedor(null);
+	}
+
+	public void addMovimiento(Movimiento movimiento) {
+		movimientos.add(movimiento);
+		movimiento.setProveedor(this);
+	}
+
+	public void removeMovimiento(Movimiento movimiento) {
+		movimientos.remove(movimiento);
+		movimiento.setProveedor(null);
 	}
 }

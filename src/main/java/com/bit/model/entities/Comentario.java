@@ -12,10 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "pago")
-public class Pago {
+@Table(name = "comentario")
+public class Comentario {
 
-	public Pago() {
+	public Comentario() {
 
 	}
 
@@ -23,12 +23,12 @@ public class Pago {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "informe_pago")
-	private String informePago;
+	@Column
+	private String comentario;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_tipo_informe", foreignKey = @ForeignKey(name = "fk_id_tipo_informe"))
-	private TipoInforme tipoInforme;
+	@JoinColumn(name = "id_departamento", foreignKey = @ForeignKey(name = "fk_id_departamento_comentario"))
+	private Departamento departamento;
 
 	public Integer getId() {
 		return id;
@@ -38,19 +38,19 @@ public class Pago {
 		this.id = id;
 	}
 
-	public String getInformePago() {
-		return informePago;
+	public String getComentario() {
+		return comentario;
 	}
 
-	public void setInformePago(String informePago) {
-		this.informePago = informePago;
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
 	}
 
-	public TipoInforme getTipoInforme() {
-		return tipoInforme;
+	public Departamento getDepartamento() {
+		return departamento;
 	}
 
-	public void setTipoInforme(TipoInforme tipoInforme) {
-		this.tipoInforme = tipoInforme;
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
 	}
 }

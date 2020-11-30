@@ -1,5 +1,8 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -42,19 +46,22 @@ public class Usuario {
 	@Column
 	private String password;
 
-	@Column(name = "fotografia")
-	private String fotografiaPath;
+	@Column(name = "path_fotografia")
+	private String pathFotografia;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_area", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_area", foreignKey = @ForeignKey(name = "fk_id_area"))
 	private CatalogoArea catalogoArea;
 
-	public void setId(Integer id) {
-		this.id = id;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<RolUsuario> rolesUsuario = new ArrayList<>();
+
+	public Integer getId() {
+		return id;
 	}
 
-	public int getId() {
-		return id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -105,12 +112,12 @@ public class Usuario {
 		this.password = password;
 	}
 
-	public String getFotografiaPath() {
-		return fotografiaPath;
+	public String getPathFotografia() {
+		return pathFotografia;
 	}
 
-	public void setFotografiaPath(String fotografiaPath) {
-		this.fotografiaPath = fotografiaPath;
+	public void setPathFotografia(String pathFotografia) {
+		this.pathFotografia = pathFotografia;
 	}
 
 	public CatalogoArea getCatalogoArea() {
@@ -119,5 +126,27 @@ public class Usuario {
 
 	public void setCatalogoArea(CatalogoArea catalogoArea) {
 		this.catalogoArea = catalogoArea;
+	}
+
+	public List<RolUsuario> getRolesUsuario() {
+		return rolesUsuario;
+	}
+
+	public void setRolesUsuario(List<RolUsuario> rolesUsuario) {
+		this.rolesUsuario = rolesUsuario;
+	}
+
+	/*
+	 * Helper Methods
+	 */
+
+	public void addRolUsuario(RolUsuario rolUsuario) {
+		rolesUsuario.add(rolUsuario);
+		rolUsuario.setUsuario(this);
+	}
+
+	public void removeRolUsuario(RolUsuario rolUsuario) {
+		rolesUsuario.remove(rolUsuario);
+		rolUsuario.setUsuario(null);
 	}
 }

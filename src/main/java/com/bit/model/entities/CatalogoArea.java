@@ -1,10 +1,16 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +29,14 @@ public class CatalogoArea {
 	@Column
 	private String area;
 
-	public void setId(int id) {
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_area", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Usuario> usuarios = new ArrayList<>();
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -33,5 +46,27 @@ public class CatalogoArea {
 
 	public void setArea(String area) {
 		this.area = area;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	/*
+	 * Helper methods
+	 */
+
+	public void addUsuario(Usuario usuario) {
+		usuarios.add(usuario);
+		usuario.setCatalogoArea(this);
+	}
+
+	public void removeUsuario(Usuario usuario) {
+		usuarios.remove(usuario);
+		usuario.setCatalogoArea(null);
 	}
 }

@@ -1,6 +1,5 @@
 package com.bit.model.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,9 +23,16 @@ public class NotificacionEvento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "departamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_departamento", foreignKey = @ForeignKey(name = "fk_id_departamento_notificacion_evento"))
 	private Departamento departamento;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_evento", foreignKey = @ForeignKey(name = "fk_id_evento_notificacion_evento"))
+	private Evento evento;
+
+	@Column
+	private Boolean confirmado;
 
 	public Integer getId() {
 		return id;
@@ -44,14 +50,19 @@ public class NotificacionEvento {
 		this.departamento = departamento;
 	}
 
-	public boolean isConfirmado() {
+	public Boolean getConfirmado() {
 		return confirmado;
 	}
 
-	public void setConfirmado(boolean confirmado) {
+	public void setConfirmado(Boolean confirmado) {
 		this.confirmado = confirmado;
 	}
 
-	@Column
-	private boolean confirmado;
+	public Evento getEvento() {
+		return evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
 }

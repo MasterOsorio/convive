@@ -1,6 +1,5 @@
 package com.bit.model.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -39,11 +38,11 @@ public class Reservacion {
 	@Column(name = "total_pagar")
 	private float totalPagar;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "departamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_departamento", foreignKey = @ForeignKey(name = "fk_id_departamento_reservacion"))
 	private Departamento departamento;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "amenidad", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_amenidad", foreignKey = @ForeignKey(name = "fk_id_amenidad_reservacion"))
 	private Amenidad amenidad;
 

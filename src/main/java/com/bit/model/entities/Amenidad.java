@@ -1,5 +1,8 @@
 package com.bit.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,7 +35,7 @@ public class Amenidad {
 	private String descripcion;
 
 	@Column(name = "tiene_costo")
-	private boolean tieneCosto;
+	private Boolean tieneCosto;
 
 	@Column(name = "costo_hora")
 	private float costoHora;
@@ -43,11 +47,17 @@ public class Amenidad {
 	private String horario;
 
 	@Column(name = "esta_habilitada")
-	private boolean estaHabilitada;
+	private Boolean estaHabilitada;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "torre", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_torre", foreignKey = @ForeignKey(name = "fk_id_torre"))
 	private Torre torre;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "amenidad", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Imagenes> imagenAmenidad = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "amenidad", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Reservacion> reservaciones = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -73,11 +83,11 @@ public class Amenidad {
 		this.descripcion = descripcion;
 	}
 
-	public boolean isTieneCosto() {
+	public Boolean getTieneCosto() {
 		return tieneCosto;
 	}
 
-	public void setTieneCosto(boolean tieneCosto) {
+	public void setTieneCosto(Boolean tieneCosto) {
 		this.tieneCosto = tieneCosto;
 	}
 
@@ -105,11 +115,11 @@ public class Amenidad {
 		this.horario = horario;
 	}
 
-	public boolean isEstaHabilitada() {
+	public Boolean getEstaHabilitada() {
 		return estaHabilitada;
 	}
 
-	public void setEstaHabilitada(boolean estaHabilitada) {
+	public void setEstaHabilitada(Boolean estaHabilitada) {
 		this.estaHabilitada = estaHabilitada;
 	}
 
@@ -119,5 +129,45 @@ public class Amenidad {
 
 	public void setTorre(Torre torre) {
 		this.torre = torre;
+	}
+
+	public List<Imagenes> getImagenAmenidad() {
+		return imagenAmenidad;
+	}
+
+	public void setImagen(List<Imagenes> imagenAmenidad) {
+		this.imagenAmenidad = imagenAmenidad;
+	}
+
+	public List<Reservacion> getReservaciones() {
+		return reservaciones;
+	}
+
+	public void setReservaciones(List<Reservacion> reservaciones) {
+		this.reservaciones = reservaciones;
+	}
+
+	/*
+	 * Helper Methods
+	 */
+
+	public void addImagenes(Imagenes imagenes) {
+		imagenAmenidad.add(imagenes);
+		imagenes.setAmenidad(this);
+	}
+
+	public void removeImagenes(Imagenes imagenes) {
+		imagenAmenidad.remove(imagenes);
+		imagenes.setAmenidad(null);
+	}
+
+	public void addReservacion(Reservacion reservacion) {
+		reservaciones.add(reservacion);
+		reservacion.setAmenidad(this);
+	}
+
+	public void removeReservacion(Reservacion reservacion) {
+		reservaciones.remove(reservacion);
+		reservacion.setAmenidad(null);
 	}
 }

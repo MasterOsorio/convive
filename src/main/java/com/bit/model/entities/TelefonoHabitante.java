@@ -1,6 +1,5 @@
 package com.bit.model.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -35,18 +33,18 @@ public class TelefonoHabitante {
 	private String extension;
 
 	@Column
-	private boolean preferente;
+	private Boolean preferente;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_telefono", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_tipo_telefono", foreignKey = @ForeignKey(name = "fk_telefono_hab_id_tipo_telefono"))
 	private CatalogoTipoTelefono catalogoTipoTelefono;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_habitante", foreignKey = @ForeignKey( name = "fk_telefono_id_habitante" ))
+	@JoinColumn(name = "id_habitante", foreignKey = @ForeignKey(name = "fk_telefono_id_habitante"))
 	private Habitante habitante;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "familiar", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "id_familiar", foreignKey = @ForeignKey(name = "id"))
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_familiar", foreignKey = @ForeignKey(name = "fk_telefono_id_familiar"))
 	private Familiar familiar;
 
 	public Integer getId() {
@@ -81,11 +79,11 @@ public class TelefonoHabitante {
 		this.extension = extension;
 	}
 
-	public boolean isPreferente() {
+	public Boolean getPreferente() {
 		return preferente;
 	}
 
-	public void setPreferente(boolean preferente) {
+	public void setPreferente(Boolean preferente) {
 		this.preferente = preferente;
 	}
 

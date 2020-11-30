@@ -2,36 +2,42 @@ package com.bit.model.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "contacto_proveedor")
 public class ContactoProveedor {
-	
+
 	public ContactoProveedor() {
-		
+
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column
 	private String nombre;
-	
+
 	@Column(name = "apellido_paterno")
 	private String apellidoPaterno;
-	
+
 	@Column(name = "apellido_materno")
 	private String apellidoMaterno;
-	
+
 	@Column(name = "correo_electronico")
 	private String correoElectronico;
-	
-	private ContactoProveedor contactoProveedor;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_proveedor", foreignKey = @ForeignKey(name = "fk_contacto_proveedor"))
+	private Proveedor proveedor;
 
 	public Integer getId() {
 		return id;
@@ -73,11 +79,11 @@ public class ContactoProveedor {
 		this.correoElectronico = correoElectronico;
 	}
 
-	public ContactoProveedor getContactoProveedor() {
-		return contactoProveedor;
+	public Proveedor getProveedor() {
+		return proveedor;
 	}
 
-	public void setContactoProveedor(ContactoProveedor contactoProveedor) {
-		this.contactoProveedor = contactoProveedor;
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
 	}
 }
