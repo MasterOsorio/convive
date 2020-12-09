@@ -29,7 +29,7 @@ public class CatalogoArea {
 	@Column
 	private String area;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_area", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoArea", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Usuario> usuarios = new ArrayList<>();
 
 	public Integer getId() {

@@ -28,13 +28,13 @@ public class CatalogoTipoTelefono {
 	@Column
 	private String tipo;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_evento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoTipoEvento", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TelefonoProveedor> telefonoProveedores = new ArrayList<>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_evento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoTipoEvento", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TelefonoHabitante> telefonoHabitantes = new ArrayList<>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_evento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoTipoEvento", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TelefonoCondominio> telefonoCondominios = new ArrayList<>();
 
 	public Integer getId() {

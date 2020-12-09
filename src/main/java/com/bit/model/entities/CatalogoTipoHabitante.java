@@ -28,7 +28,7 @@ public class CatalogoTipoHabitante {
 	@Column
 	private String tipo;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_habitante", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoTipoHabitante", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Habitante> habitantes = new ArrayList<>();
 
 	public Integer getId() {

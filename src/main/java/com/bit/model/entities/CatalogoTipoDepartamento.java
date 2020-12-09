@@ -31,7 +31,7 @@ public class CatalogoTipoDepartamento {
 	@Column
 	private String descripcion;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_tipo_departamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoTipoDepartamento", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Departamento> departamentosCatalogo = new ArrayList<>();
 
 	public Integer getId() {

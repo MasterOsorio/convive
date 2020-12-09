@@ -31,7 +31,7 @@ public class CatalogoPantalla {
 	@Column
 	private String descripcion;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo_pantalla", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoPantalla", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PermisoPantalla> pantallas = new ArrayList<>();
 
 	public Integer getId() {

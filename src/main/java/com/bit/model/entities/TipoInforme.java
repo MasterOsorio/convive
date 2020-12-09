@@ -28,7 +28,7 @@ public class TipoInforme {
 	@Column(name = "tipo_informe")
 	private String tipoInforme;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipo_informe", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoInforme", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Pago> pagos = new ArrayList<>();
 
 	public Integer getId() {
