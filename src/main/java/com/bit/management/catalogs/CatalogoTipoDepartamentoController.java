@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@RequestMapping(name = "catalogs/catalog-department-type")
+@RequestMapping(value = "catalogs/catalog-department-type")
 //crea objeto de sesion
 @SessionAttributes("currentAdmin")
 public class CatalogoTipoDepartamentoController {
 	
-	@GetMapping(name = "")
+	@GetMapping(value = "agregar")
 	public String getPantallaCatalogoArea() {
 
 		return "catalogs/template-catalog-department-type";

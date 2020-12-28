@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@RequestMapping(name = "catalogs/catalog-movement-type")
+@RequestMapping(value = "catalogs/catalog-movement-type")
 //crea objeto de sesion
 @SessionAttributes("currentAdmin")
 public class CatalogoTipoMovimientoController {
 
-	@GetMapping(name = "")
+	@GetMapping(value = "agregar")
 	public String getCatalogoTipoMovimientoController() {
 
 		return "catalogs/template-catalog-movement-type";
