@@ -1,6 +1,7 @@
 package com.bit.management.catalogs;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class CatalogoTipoTelefonoController {
 
 	@GetMapping(value = "agregar")
-	public String getCatalogoTipoTelefonoController() {
-
+	public String getCatalogoTipoTelefonoController(Model model) {
+		
+		CatalogoTipoTelefono item = new CatalogoTipoTelefono();
+		model.addAttribute("item", item);
+		
 		return "catalogs/template-catalog-phone-type";
 	}
 }
