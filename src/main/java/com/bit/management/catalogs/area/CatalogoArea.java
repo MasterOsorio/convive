@@ -1,4 +1,4 @@
-package com.bit.management.catalogs;
+package com.bit.management.catalogs.area;
 
 import java.util.ArrayList;
 import java.util.List;

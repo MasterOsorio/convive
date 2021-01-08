@@ -1,4 +1,4 @@
-package com.bit.management.catalogs;
+package com.bit.management.catalogs.movementtype;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

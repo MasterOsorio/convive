@@ -1,4 +1,4 @@
-package com.bit.management.catalogs;
+package com.bit.management.catalogs.responsetype;
 
 import org.springframework.stereotype.Repository;
 

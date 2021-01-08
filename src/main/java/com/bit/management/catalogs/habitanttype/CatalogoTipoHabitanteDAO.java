@@ -1,4 +1,4 @@
-package com.bit.management.catalogs;
+package com.bit.management.catalogs.habitanttype;
 
 import org.springframework.stereotype.Repository;
 
