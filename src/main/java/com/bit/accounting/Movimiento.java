@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.bit.management.catalogs.CatalogoTipoMovimiento;
+import com.bit.management.catalogs.movementtype.CatalogoTipoMovimiento;
 import com.bit.management.providers.Proveedor;
 
 @Entity

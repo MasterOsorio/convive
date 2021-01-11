@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.bit.management.catalogs.CatalogoPantalla;
+import com.bit.management.catalogs.screen.CatalogoPantalla;
 
 @Entity
 @Table(name = "permiso_pantalla")

@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.bit.management.catalogs.CatalogoTipoEvento;
+import com.bit.management.catalogs.eventtype.CatalogoTipoEvento;
 
 @Entity
 @Table(name = "evento")

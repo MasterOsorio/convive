@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.bit.management.catalogs.CatalogoTipoRespuesta;
+import com.bit.management.catalogs.responsetype.CatalogoTipoRespuesta;
 
 @Entity
 @Table(name = "encuesta")

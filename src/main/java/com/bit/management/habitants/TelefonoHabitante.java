@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.bit.management.catalogs.CatalogoTipoTelefono;
+import com.bit.management.catalogs.phonetype.CatalogoTipoTelefono;
 import com.bit.management.familiars.Familiar;
 
 @Entity

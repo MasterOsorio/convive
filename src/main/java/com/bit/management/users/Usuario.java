@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.bit.management.catalogs.CatalogoArea;
+import com.bit.management.catalogs.area.CatalogoArea;
 
 @Entity
 @Table(name = "usuario")

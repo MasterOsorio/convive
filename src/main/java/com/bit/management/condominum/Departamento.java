@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.bit.comments.Comentario;
-import com.bit.management.catalogs.CatalogoTipoDepartamento;
+import com.bit.management.catalogs.departmenttype.CatalogoTipoDepartamento;
 import com.bit.management.eventnotification.NotificacionEvento;
 import com.bit.management.eventnotification.RespuestaDepartamento;
 import com.bit.management.habitants.Habitante;

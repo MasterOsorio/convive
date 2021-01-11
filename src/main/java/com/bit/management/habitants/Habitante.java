@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.bit.management.catalogs.CatalogoTipoHabitante;
+import com.bit.management.catalogs.habitanttype.CatalogoTipoHabitante;
 import com.bit.management.condominum.Departamento;
 import com.bit.management.familiars.Familiar;
 
