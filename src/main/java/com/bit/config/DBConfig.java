@@ -67,7 +67,7 @@ public class DBConfig {
 			System.out.println("Creando sessionfactory");
 			LocalSessionFactoryBean lsfb = new LocalSessionFactoryBean();
 			lsfb.setDataSource(dataSource());
-			lsfb.setPackagesToScan("com.bit.model");
+			lsfb.setPackagesToScan("com.bit");
 			Properties props = new Properties();
 			props.setProperty("hibernate.dialect", env.getProperty("db.dialect"));
 			props.setProperty("show_sql", "false");

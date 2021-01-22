@@ -32,6 +32,7 @@ public class CatalogoAreaController {
 	public String guardarCatalogoArea(Model model, @ModelAttribute CatalogoAreaView item, BindingResult errors) {
 
 		catalogoAreaService.guardar(item);
-		return "redirect:/webapp/catalogs/template-catalog-area";
+		
+		return "redirect:/catalogs/catalog-area/agregar";
 	}
 }
