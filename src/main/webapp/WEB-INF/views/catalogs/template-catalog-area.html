@@ -196,8 +196,8 @@
 						<form id="formName" class="form-horizontal" 
 							th:object="${viewdataform}" method="post">
 							<div class="card ">
-								<div class="card-header ">
-									<h4 class="card-title">Cat&aacute;logo &Aacute;rea</h4>
+								<div class="card-header">
+									<h4 class="card-title">Nueva &Aacute;rea</h4>
 								</div>
 								<div class="card-body ">
 									<div class="row">
@@ -222,6 +222,12 @@
 									<button class="btn btn-success" type="submit" id="Guardar">Guardar</button>
 
 								</div>
+
+								<div class="card-footer text-center bg-danger" th:if="${error}">
+									<p class="card-text text-white" th:text="${message != null} ? ${message}">Mensaje de error</p>
+								</div>
+								
+								
 								<!-- 
                 swal2-icon-content
                 <div class="card-footer text-center">
@@ -236,6 +242,9 @@
 
 				</div>
 			</div>
+			
+			<span id="notificationType" th:text="${action != null} ? ${action}">someValue</span>
+			
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
 					<div class="row">
@@ -356,8 +365,6 @@
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script src="../../../resources/assets/demo/demo.js"
 		th:src="@{/resources/assets/demo/demo.js}"></script>
-	<script src="../../../resources/assets/js/template-catalogo.js"
-		th:src="@{/resources/assets/js/template-catalogo.js}"></script>
 	<script>
 		function setFormValidation(id) {
 			$(id).validate(
@@ -380,9 +387,36 @@
 					});
 		}
 
+		function showNotification() {
+			console.log( "showNotification()" );
+			var type = "[[${action}]]";
+			var msg = "[[${message}]]";
+			  console.log( $("#notificationType").text() + " - " + msg );
+			  
+			  
+			    $.notify({
+			      icon: "nc-icon nc-bell-55",
+			      message: msg
+
+			    }, {
+			      type: type,
+			      timer: 1000,
+			      placement: {
+			        from: 'top',
+			        align: 'right'
+			      }
+			    });
+		}
+
 		$(document).ready(function() {
 			setFormValidation('#formName');
 
+			console.log( "Verificando mensaje" );
+			
+			var type = $("#notificationType").text();
+	    	if( type ){
+	    		showNotification();
+	        }
 		});
 	</script>
 </body>
