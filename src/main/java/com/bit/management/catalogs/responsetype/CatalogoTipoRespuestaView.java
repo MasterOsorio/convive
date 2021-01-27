@@ -1,8 +1,8 @@
 package com.bit.management.catalogs.responsetype;
 
-public class CatalogoTipoRespuestaVew {
+public class CatalogoTipoRespuestaView {
 	
-	public CatalogoTipoRespuestaVew() {
+	public CatalogoTipoRespuestaView() {
 		
 	}
 	

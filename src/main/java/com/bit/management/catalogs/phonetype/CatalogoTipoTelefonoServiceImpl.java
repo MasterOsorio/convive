@@ -1,5 +1,8 @@
 package com.bit.management.catalogs.phonetype;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +30,22 @@ public class CatalogoTipoTelefonoServiceImpl implements CatalogoTipoTelefonoServ
 		item.setId(entity.getId());
 		
 		return item;
+	}
+
+	@Override
+	@Transactional
+	public List<CatalogoTipoTelefonoView> list(CatalogoTipoTelefonoView item) {
+		
+		List<CatalogoTipoTelefono> list = catalogoTipoTelefonoDAO.list();
+		List<CatalogoTipoTelefonoView> listViews = new ArrayList<>();
+		
+		for(CatalogoTipoTelefono e : list) {
+			CatalogoTipoTelefonoView v = new CatalogoTipoTelefonoView();
+			v.setId(e.getId());
+			v.setTipo(e.getTipo());
+			listViews.add(v);
+		}
+		
+		return listViews;
 	}
 }

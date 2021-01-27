@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class CatalogoAreaServiceImpl implements CatalogoAreaService {
 
 	private static Logger log = LoggerFactory.getLogger(CatalogoAreaServiceImpl.class);
-
 	
 	@Autowired
 	private CatalogoAreaDAO catalogoAreaDAO; 
@@ -37,6 +36,7 @@ public class CatalogoAreaServiceImpl implements CatalogoAreaService {
 	@Override
 	@Transactional
 	public List<CatalogoAreaView> list(CatalogoAreaView item) {
+		
 		List<CatalogoArea> list = catalogoAreaDAO.list();
 		List<CatalogoAreaView> listViews = new ArrayList<>();
 		
@@ -47,8 +47,6 @@ public class CatalogoAreaServiceImpl implements CatalogoAreaService {
 			listViews.add(v);
 		}
 		
-		
 		return listViews;
-		
 	}
 }

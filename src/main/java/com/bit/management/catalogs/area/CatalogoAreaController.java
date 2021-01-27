@@ -42,7 +42,6 @@ public class CatalogoAreaController {
 
 		catalogoAreaService.guardar(item);
 
-
 		redirectAttributes.addFlashAttribute("action", "success");
 		redirectAttributes.addFlashAttribute("message", "El registro ha sido guardado correctamente");
 			
@@ -64,8 +63,6 @@ public class CatalogoAreaController {
 		List<CatalogoAreaView> list = catalogoAreaService.list( null );
 		model.addAttribute("list", list);
 		
-		
 		return "catalogs/catalog-area-list";
-
 	}
 }

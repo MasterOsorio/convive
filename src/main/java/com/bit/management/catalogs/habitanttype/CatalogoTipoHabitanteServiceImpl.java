@@ -1,5 +1,8 @@
 package com.bit.management.catalogs.habitanttype;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +30,22 @@ public class CatalogoTipoHabitanteServiceImpl implements CatalogoTipoHabitanteSe
 		item.setId(entity.getId());
 
 		return item;
+	}
+
+	@Override
+	@Transactional
+	public List<CatalogoTipoHabitanteView> list(CatalogoTipoHabitanteView item) {
+		
+		List<CatalogoTipoHabitante> list = catalogoTipoHabitanteDAO.list();
+		List<CatalogoTipoHabitanteView> listViews = new ArrayList<>();
+		
+		for(CatalogoTipoHabitante e : list) {
+			CatalogoTipoHabitanteView v = new CatalogoTipoHabitanteView();
+			v.setId(e.getId());
+			v.setTipo(e.getTipo());
+			listViews.add(v);
+		}
+		
+		return listViews;
 	}
 }

@@ -1,5 +1,8 @@
 package com.bit.management.catalogs.eventtype;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +30,22 @@ public class CatalogoTipoEventoServiceImpl implements CatalogoTipoEventoService{
 		item.setId(entity.getId());
 
 		return item;
+	}
+
+	@Override
+	@Transactional
+	public List<CatalogoTipoEventoView> list(CatalogoTipoEventoView item) {
+		
+		List<CatalogoTipoEvento> list = catalogoTipoEventoDAO.list();
+		List<CatalogoTipoEventoView> listViews = new ArrayList<>();
+		
+		for(CatalogoTipoEvento e : list) {
+			CatalogoTipoEventoView v = new CatalogoTipoEventoView();
+			v.setId(e.getId());
+			v.setTipo(e.getTipo());
+			listViews.add(v);
+		}
+		
+		return listViews;
 	}
 }

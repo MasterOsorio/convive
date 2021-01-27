@@ -1,5 +1,8 @@
 package com.bit.management.catalogs.departmenttype;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +31,22 @@ public class CatalogoTipoDepartamentoServiceImpl implements CatalogoTipoDepartam
 		item.setId(entity.getId());
 
 		return item;
+	}
+
+	@Override
+	@Transactional
+	public List<CatalogoTipoDepartamentoView> list(CatalogoTipoDepartamentoView item) {
+		List<CatalogoTipoDepartamento> list = catalogoTipoDepartamentoDAO.list();
+		List<CatalogoTipoDepartamentoView> listViews = new ArrayList<>();
+		
+		for(CatalogoTipoDepartamento e : list) {
+			CatalogoTipoDepartamentoView v = new CatalogoTipoDepartamentoView();
+			v.setId(e.getId());
+			v.setNombre(e.getNombre());
+			v.setDescripcion(e.getDescripcion());
+			listViews.add(v);
+		}
+		
+		return listViews;
 	}
 }
