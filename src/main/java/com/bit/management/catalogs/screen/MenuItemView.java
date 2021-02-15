@@ -1,9 +1,9 @@
 package com.bit.management.catalogs.screen;
 
-public class CatalogoPantallaView {
-
-	public CatalogoPantallaView() {
-
+public class MenuItemView {
+	
+	public MenuItemView() {
+		
 	}
 
 	private Integer id;
@@ -50,5 +50,11 @@ public class CatalogoPantallaView {
 
 	public void setPerteneceA(Integer perteneceA) {
 		this.perteneceA = perteneceA;
+	}
+
+	@Override
+	public String toString() {
+		return "MenuItemView **id=" + id + ", pantalla=" + pantalla + ", descripcion=" + descripcion + ", categoria="
+				+ categoria + ", perteneceA=" + perteneceA + "**";
 	}
 }

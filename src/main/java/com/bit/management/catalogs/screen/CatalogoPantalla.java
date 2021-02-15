@@ -32,6 +32,12 @@ public class CatalogoPantalla {
 
 	@Column
 	private String descripcion;
+	
+	@Column
+	private String categoria;
+	
+	@Column
+	private Integer perteneceA;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoPantalla", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PermisoPantalla> pantallas = new ArrayList<>();
@@ -58,6 +64,22 @@ public class CatalogoPantalla {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public Integer getPerteneceA() {
+		return perteneceA;
+	}
+
+	public void setPerteneceA(Integer perteneceA) {
+		this.perteneceA = perteneceA;
 	}
 
 	public List<PermisoPantalla> getPantallas() {
