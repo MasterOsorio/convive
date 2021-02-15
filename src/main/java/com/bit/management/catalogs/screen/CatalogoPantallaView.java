@@ -11,6 +11,7 @@ public class CatalogoPantallaView {
 	private String descripcion;
 	private String categoria;
 	private Integer perteneceA;
+	private String link;
 
 	public Integer getId() {
 		return id;
@@ -50,5 +51,13 @@ public class CatalogoPantallaView {
 
 	public void setPerteneceA(Integer perteneceA) {
 		this.perteneceA = perteneceA;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 }
