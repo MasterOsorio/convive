@@ -11,6 +11,7 @@ public class MenuItemView {
 	private String descripcion;
 	private String categoria;
 	private Integer perteneceA;
+	private String link;
 
 	public Integer getId() {
 		return id;
@@ -52,9 +53,17 @@ public class MenuItemView {
 		this.perteneceA = perteneceA;
 	}
 
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 	@Override
 	public String toString() {
-		return "MenuItemView **id=" + id + ", pantalla=" + pantalla + ", descripcion=" + descripcion + ", categoria="
-				+ categoria + ", perteneceA=" + perteneceA + "**";
+		return "MenuItemView [id=" + id + ", pantalla=" + pantalla + ", descripcion=" + descripcion + ", categoria="
+				+ categoria + ", perteneceA=" + perteneceA + ", link=" + link + "]";
 	}
 }
