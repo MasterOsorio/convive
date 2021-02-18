@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.bit.utils.ConviveUtils;
+
 @Controller
 @RequestMapping(value = "catalogs/catalog-screen")
 //crea objeto de sesion
@@ -60,8 +62,11 @@ public class CatalogoPantallaController {
 			model.addAttribute("message", message);
 		}
 		
+		
 		List<CatalogoPantallaView> list = catalogoPantallaService.list(null);
-		model.addAttribute("list", list);
+		model.addAttribute( "list", list);
+		model.addAttribute( "menus", ConviveUtils.menus );
+		
 		
 		return "catalogs/catalog-screen-list";
 	}

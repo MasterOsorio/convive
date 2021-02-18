@@ -63,6 +63,8 @@
             </div>
           </div>
         </div>
+        
+        <!-- SECCION MENU -->
         <ul class="nav">
           <li>
             <a href="../../examples/dashboard.html">
@@ -170,6 +172,18 @@
           </li>
 
         </ul>
+        <!--  FIN SECCION MENU -->
+        <ul class="nav">
+        	<li th:each="menu : ${menus}">
+        		<ul th:text="${menu.parent.pantalla}">
+        			<li th:each="submenu : ${menu.children}">
+        				<ul th:text="${submenu.pantalla}"></ul>
+        			</li>
+        		</ul>
+        	</li>
+        </ul>
+        
+        
       </div>
     </div>
     <div class="main-panel">
