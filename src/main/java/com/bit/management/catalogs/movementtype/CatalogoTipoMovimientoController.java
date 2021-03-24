@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.bit.controllers.BaseController;
+
 @Controller
 @RequestMapping(value = "catalogs/catalog-movement-type")
 //crea objeto de sesion
 @SessionAttributes("currentAdmin")
-public class CatalogoTipoMovimientoController {
+public class CatalogoTipoMovimientoController extends BaseController {
 
 	@Autowired
 	private CatalogoTipoMovimientoService catalogoTipoMovimientoService;
@@ -32,37 +34,42 @@ public class CatalogoTipoMovimientoController {
 		CatalogoTipoMovimientoView item = new CatalogoTipoMovimientoView();
 		model.addAttribute("item", item);
 
+		putHierarchyOnModel(model, 25);
+		
 		return "catalogs/template-catalog-movement-type";
 	}
 
 	@PostMapping(value = "agregar")
-	public String guardarCatalogoTipoMovimiento(Model model,
-			@ModelAttribute CatalogoTipoMovimientoView item, BindingResult errors,
-			RedirectAttributes redirectAttributes) {
-		
+	public String guardarCatalogoTipoMovimiento(Model model, @ModelAttribute CatalogoTipoMovimientoView item,
+			BindingResult errors, RedirectAttributes redirectAttributes) {
+
 		catalogoTipoMovimientoService.guardar(item);
-		
+
 		redirectAttributes.addFlashAttribute("action", "success");
 		redirectAttributes.addFlashAttribute("message", "El registro ha sido guardado correctamente");
+
+		putHierarchyOnModel(model, 25);
 		
 		return "redirect:list";
 	}
-	
+
 	@GetMapping(value = "list")
 	public String getCatalogoTipoMovimientoList(Model model, HttpServletRequest request) {
-		
+
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
-			String action = (String)inputFlashMap.get("action");
-			String message = (String)inputFlashMap.get("message");
-			
+			String action = (String) inputFlashMap.get("action");
+			String message = (String) inputFlashMap.get("message");
+
 			model.addAttribute("action", action);
 			model.addAttribute("message", message);
 		}
-		
+
 		List<CatalogoTipoMovimientoView> list = catalogoTipoMovimientoService.list(null);
 		model.addAttribute("list", list);
-		
+
+		putHierarchyOnModel(model, 25);
+
 		return "catalogs/catalog-movement-type-list";
 	}
 }

@@ -32,12 +32,15 @@ import com.bit.utils.ConviveUtils;
 public class ConfigBeanListener {
 
 	private static final Logger log = LoggerFactory.getLogger(ApplicationListener.class);
-
+//inyecta la dependenacia del service catalogo pNT
 	@Autowired
 	private CatalogoPantallaService catalogoPantallaService;
 
 	@EventListener
 	@Transactional
+//	se manda llamar el metodo anotado @EventListener cada vez que carga o refresca la aplicacion
+//	obtiene un list de tipo MenuWrapperview que se setea en la variable menus de tipo listMenuWrapperView
+//	y se puede usar
 	public void handleContextStart(ContextRefreshedEvent event) {
 
 		log.info("**Cargando menus**");

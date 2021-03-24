@@ -24,8 +24,8 @@
 	th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}"
 	rel="stylesheet" />
 <!-- CSS Just for demo purpose, don't include it in your project 
-<link href="../../../resources/assets/demo/demo.css" th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
--->
+<link href="../../../resources/assets/demo/demo.css"
+th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
 </head>
 
 <body class="">
@@ -38,11 +38,11 @@
 						<img src="../../../resources/assets/img/logo-small.png">
 					</div>
 				</a>
-				<a href="http://www.creative-tim.com"
-					class="simple-text logo-normal"> CONVIVE 
+				<a href="http://www.creative-tim.com" 
+					class="simple-text logo-normal"> CONVIVE
 					<!-- <div class="logo-image-big">
             			<img src="../../../resources/assets/img/logo-big.png">
-         	 		</div> -->
+          			</div> -->
 				</a>
 			</div>
 			<div class="sidebar-wrapper">
@@ -70,145 +70,42 @@
 				</div>
 				
 				<!-- Inicia Menu -->
-				<ul th:replace="fragments/menu :: menuFragment"></ul>
+				<ul class="nav" th:fragment="menuFragment">
+				<!-- Menu padre -->
+					<!-- th:each sirve para iterar es un for each -->
+					<li th:each="menu : ${menus}" th:attrappend="class=${menu.parent.id == idParent} ? 'active'">
+						<!-- th:attrappend Sirve para concatenar atributos a una etiqueta -->
+						<a th:attrappend="data-toggle=${not #lists.isEmpty(menu.children)} ? 'collapse', aria-expanded=${not #lists.isEmpty(menu.children)} ? 'true'"
+						 	th:href="${not #lists.isEmpty(menu.children)} ? |#${menu.parent.pantalla}| : @{${menu.parent.link}}">
+							<i class="nc-icon nc-bank"></i>
+							<p>
+								<span th:text="${menu.parent.pantalla}">Nombre de Menu Padre</span>
+								<!-- class="caret" pinta icono de desplegar usando th:if si la lista no esta vacia,
+								si esta vacia no pinta el icono -->
+								<b class="caret" 
+        							th:if="${not #lists.isEmpty(menu.children)}">
+        						</b>
+							</p>
+						</a>
+						<!-- th:id sirve para agregar el atibuto id en base a una variable -->
+						<!-- accede a la variable con la notacion "${}" -->
+						<div th:attrappend="class=${menu.parent.id == idParent} ? 'collapse show' : 'collapse'" th:id="${menu.parent.pantalla}">
+							<ul class="nav">
+								<li th:each="submenu : ${menu.children}" th:attrappend="class=${submenu.id == idChild} ? 'active'">
+									<a th:href="@{${submenu.link}}">
+										<span class="sidebar-mini-icon">T</span>
+										<span class="sidebar-normal" th:text="${submenu.pantalla}">Nombre del Menu Hijo</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
 				<!-- Termina Menu -->
-
+				
 			</div>
 		</div>
-		<div class="main-panel">
-			<!-- Navbar -->
-			<nav
-				class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-				<div class="container-fluid">
-					<div class="navbar-wrapper">
-						<div class="navbar-minimize">
-							<button id="minimizeSidebar" class="btn btn-icon btn-round">
-								<i class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
-								<i class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
-							</button>
-						</div>
-						<div class="navbar-toggle">
-							<button type="button" class="navbar-toggler">
-								<span class="navbar-toggler-bar bar1"></span>
-								<span class="navbar-toggler-bar bar2"></span>
-								<span class="navbar-toggler-bar bar3"></span>
-							</button>
-						</div>
-						<a class="navbar-brand" href="#pablo">Convive</a>
-					</div>
-				</div>
-			</nav>
-			<!-- End Navbar -->
-
-			<!-- TABLE -->
-			<div class="content">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="card">
-							<div class="card-header">
-								<h4 class="card-title">Lista de &Aacute;rea</h4>
-							</div>
-							<div class="card-body">
-								<div class="toolbar">
-									<!-- Inputs for filtering -->
-									<div class="col-md-2 pl-1">
-										<div class="form-group" id="filter_col0" data-column="0">
-											<label>Name</label>
-											<input type="text" name="Name"
-												class="form-control column_filter" id="col0_filter"
-												placeholder="Name">
-										</div>
-									</div>
-								</div>
-							</div>
-							<table id="datatable" class="table table-striped table-bordered"
-								cellspacing="0" width="100%">
-								<thead>
-									<tr>
-										<th>Id</th>
-										<th>Area</th>
-										<th class="disabled-sorting text-right"></th>
-									</tr>
-								</thead>
-								<tbody>
-									<th:block th:each="item : ${list}">
-										<tr>
-											<td th:text="${item.id}"></td>
-											<td th:text="${item.area}"></td>
-											<td class="text-center"><a
-												th:href="@{'editar/' + ${item.id}}">Editar</a></td>
-										</tr>
-									</th:block>
-								</tbody>
-								<tfoot>
-									<tr>
-										<th></th>
-										<th></th>
-										<th></th>
-									</tr>
-								</tfoot>
-							</table>
-						</div>
-						<!-- end content-->
-					</div>
-					<!--  end card  -->
-				</div>
-				<!-- end col-md-12 -->
-			</div>
-			<!-- end row -->
-		</div>
-		<!-- END TABLE -->
-
-		<footer class="footer footer-black  footer-white ">
-			<div class="container-fluid">
-				<div class="row">
-					<nav class="footer-nav">
-						<ul>
-							<li></li>
-							<li></li>
-							<li></li>
-						</ul>
-					</nav>
-					<div class="credits ml-auto">
-						<span class="copyright"> © 
-							<script>document.write(new Date().getFullYear())</script>
-						</span>
-					</div>
-
-					<!-- MODALS -->
-					<div class="modal fade right" id="modalConfirm" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalPreviewLabel"
-						aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content" style="border-radius: 20px;">
-								<div class="modal-body" style="text-align: center;">
-									<h1>
-										<i class="fa fa-bell-o" aria-hidden="true"></i>
-									</h1>
-									<h3>Eliminar registro</h3>
-									<p>¿Seguro que quieres eliminar este regsitro?</p>
-								</div>
-								<div class="modal-footer"
-									style="text-align: center; display: inline-block; border: none; padding-bottom: 25px;">
-									<button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
-									<a class="btn btn-primary"
-										th:href="@{/webapp/departamento/delete-template-catalogo}">
-										Si, Eliminar
-									</a> <br></br>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- END MODALS -->
-
-					<!-- NOTIFICATION -->
-					<span id="notificationType" th:text="${action != null} ? ${action}">someValue</span>
-
-				</div>
-			</div>
-		</footer>
 	</div>
-	
 	<!--   Core JS Files   -->
 	<script src="../../../resources/assets/js/core/jquery.min.js"
 		th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
@@ -216,7 +113,8 @@
 		th:src="@{/resources/assets/js/core/popper.min.js}"></script>
 	<script src="../../../resources/assets/js/core/bootstrap.min.js"
 		th:src="@{/resources/assets/js/core/bootstrap.min.js}"></script>
-	<scriptsrc="../../../resources/assets/js/plugins/perfect-scrollbar.jquery.min.js"
+	<script
+		src="../../../resources/assets/js/plugins/perfect-scrollbar.jquery.min.js"
 		th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
 	<script src="../../../resources/assets/js/plugins/moment.min.js"
 		th:src="@{/resources/assets/js/plugins/moment.min.js}"></script>
@@ -275,76 +173,7 @@
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script src="../../../resources/assets/demo/demo.js"
 		th:src="@{/resources/assets/demo/demo.js}"></script>
-	<script>
-		function showNotification() {
-			var type = "[[${action}]]";
-			var msg = "[[${message}]]";
-			console.log($("#notificationType").text() + " - " + msg);
-
-			$.notify({
-				icon : "nc-icon nc-bell-55",
-				message : msg
-
-			}, {
-				type : type,
-				timer : 1000,
-				placement : {
-					from : 'top',
-					align : 'right'
-				}
-			});
-		}
-
-		$(document).ready(function() {
-
-			var type = $("#notificationType").text();
-			if (type) {
-				showNotification();
-			}
-
-			/*
-			AJAX DATATABLE
-			var table = $('#datatable').DataTable( {
-			    "serverSide": true,
-			    "ajax": {
-			        "url": 'http://localhost:8080/webapp/datatable',
-			        "data": function ( d ) {
-			            d.searchTerm = d.search.value;
-			            d.firstResult = d.start;
-			            d.maxResults = d.length;
-			            d.searchColumn = $('#col0_filter').val()
-			            // d.custom = $('#myInput').val();
-			            // etc
-			        }
-			    },
-			    "columns": [
-			        { "data": "id" },
-			        { "data": "field1" },
-			        { "data": "field2" },
-			        { "data": "field3" }
-			    ]
-			} );
-
-			$('#col0_filter').keyup( function() {
-			    table.draw();
-			} );
-			 */
-
-			$('#datatable').DataTable({
-				"pagingType" : "full_numbers",
-				"lengthMenu" : [ [ 10, 25, 50, -1 ], [ 10, 25, 50, "All" ] ],
-				responsive : true,
-				language : {
-					search : "_INPUT_",
-					searchPlaceholder : "Search records",
-				}
-
-			});
-
-			var table = $('#datatable').DataTable();
-
-		});
-	</script>
+	
 </body>
 
 </html>

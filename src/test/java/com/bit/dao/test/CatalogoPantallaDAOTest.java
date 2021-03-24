@@ -2,6 +2,7 @@ package com.bit.dao.test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import com.bit.management.catalogs.screen.CatalogoPantalla;
 import com.bit.management.catalogs.screen.CatalogoPantallaDAO;
 import com.bit.management.catalogs.screen.MenuItemView;
 import com.bit.management.catalogs.screen.MenuWrapperView;
+import com.bit.utils.ConviveUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
@@ -177,5 +179,15 @@ public class CatalogoPantallaDAOTest {
 				System.out.println("No hay menus");
 			}
 		}
+	}
+	
+	@Test
+	public void findHierarchy() {
+//		para llamar un metodo estatico se escribe el nombre la clase y el nombre del metodo
+		Map<String, Integer> h = ConviveUtils.findHierarchy(1);
+		Integer valorParent = h.get("ID_PARENT");
+		Integer valorChild = h.get("ID_CHILD");
+		
+		System.out.println(valorParent + ", " + valorChild);
 	}
 }

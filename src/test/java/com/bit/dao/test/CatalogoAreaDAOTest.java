@@ -10,8 +10,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.config.WebConfig;
-import com.bit.dao.CatalogoAreaDAO;
-import com.bit.model.entities.CatalogoArea;
+import com.bit.management.catalogs.area.CatalogoArea;
+import com.bit.management.catalogs.area.CatalogoAreaDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)

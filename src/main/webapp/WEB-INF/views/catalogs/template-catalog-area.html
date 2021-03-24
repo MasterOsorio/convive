@@ -71,93 +71,11 @@
 						</div>
 					</div>
 				</div>
-				<ul class="nav">
-					<li><a href="../../examples/dashboard.html"> <i
-							class="nc-icon nc-bank"></i>
-							<p>Dashboard</p>
-					</a></li>
-					<li><a data-toggle="collapse" href="#pagesExamples"> <i
-							class="nc-icon nc-book-bookmark"></i>
-							<p>
-								Cat&aacute;logos <b class="caret"></b>
-							</p>
-					</a>
-						<div class="collapse " id="pagesExamples">
-							<ul class="nav">
-								<li><a href="../../examples/pages/timeline.html"> <span
-										class="sidebar-mini-icon">A</span> <span
-										class="sidebar-normal"> &Aacute;rea </span>
-								</a></li>
-								<li><a href="../../examples/pages/login.html"> <span
-										class="sidebar-mini-icon">P</span> <span
-										class="sidebar-normal"> Pantalla </span>
-								</a></li>
-								<li><a href="../../examples/pages/register.html"> <span
-										class="sidebar-mini-icon">TD</span> <span
-										class="sidebar-normal"> Tipo Departamento </span>
-								</a></li>
-								<li><a href="../../examples/pages/lock.html"> <span
-										class="sidebar-mini-icon">TE</span> <span
-										class="sidebar-normal"> Tipo Evento </span>
-								</a></li>
-								<li><a href="../../examples/pages/user.html"> <span
-										class="sidebar-mini-icon">TH</span> <span
-										class="sidebar-normal"> Tipo Habitante </span>
-								</a></li>
-								<li><a href="../../examples/pages/register.html"> <span
-										class="sidebar-mini-icon">TM</span> <span
-										class="sidebar-normal"> Tipo Movimiento </span>
-								</a></li>
-								<li><a href="../../examples/pages/lock.html"> <span
-										class="sidebar-mini-icon">TR</span> <span
-										class="sidebar-normal"> Tipo Respuesta </span>
-								</a></li>
-								<li><a href="../../examples/pages/user.html"> <span
-										class="sidebar-mini-icon">TT</span> <span
-										class="sidebar-normal"> Tipo Tel&eacute;fono </span>
-								</a></li>
-							</ul>
-						</div></li>
-					<li><a data-toggle="collapse" href="#componentsExamples">
-							<i class="nc-icon nc-layout-11"></i>
-							<p>
-								Estad&iacute;sticas <b class="caret"></b>
-							</p>
-					</a>
-						<div class="collapse " id="componentsExamples">
-							<ul class="nav">
-								<li><a href="../../examples/components/buttons.html"> <span
-										class="sidebar-mini-icon">B</span> <span
-										class="sidebar-normal"> Buttons </span>
-								</a></li>
-								<li><a href="../../examples/components/grid.html"> <span
-										class="sidebar-mini-icon">G</span> <span
-										class="sidebar-normal"> Grid System </span>
-								</a></li>
-								<li><a href="../../examples/components/panels.html"> <span
-										class="sidebar-mini-icon">P</span> <span
-										class="sidebar-normal"> Panels </span>
-								</a></li>
-								<li><a href="../../examples/components/sweet-alert.html">
-										<span class="sidebar-mini-icon">SA</span> <span
-										class="sidebar-normal"> Sweet Alert </span>
-								</a></li>
-								<li><a href="../../examples/components/notifications.html">
-										<span class="sidebar-mini-icon">N</span> <span
-										class="sidebar-normal"> Notifications </span>
-								</a></li>
-								<li><a href="../../examples/components/icons.html"> <span
-										class="sidebar-mini-icon">I</span> <span
-										class="sidebar-normal"> Icons </span>
-								</a></li>
-								<li><a href="../../examples/components/typography.html">
-										<span class="sidebar-mini-icon">T</span> <span
-										class="sidebar-normal"> Typography </span>
-								</a></li>
-							</ul>
-						</div></li>
 
-				</ul>
+				<!-- Inicia Menu -->
+				<ul th:replace="fragments/menu :: menuFragment"></ul>
+				<!-- Termina Menu -->
+
 			</div>
 		</div>
 		<div class="main-panel">
@@ -193,7 +111,7 @@
 			<div class="content">
 				<div class="row">
 					<div class="col-md-12">
-						<form id="formName" class="form-horizontal" 
+						<form id="formName" class="form-horizontal"
 							th:object="${viewdataform}" method="post">
 							<div class="card ">
 								<div class="card-header">
@@ -224,10 +142,11 @@
 								</div>
 
 								<div class="card-footer text-center bg-danger" th:if="${error}">
-									<p class="card-text text-white" th:text="${message != null} ? ${message}">Mensaje de error</p>
+									<p class="card-text text-white"
+										th:text="${message != null} ? ${message}">Mensaje de error</p>
 								</div>
-								
-								
+
+
 								<!-- 
                 swal2-icon-content
                 <div class="card-footer text-center">
@@ -242,9 +161,9 @@
 
 				</div>
 			</div>
-			
+
 			<span id="notificationType" th:text="${action != null} ? ${action}">someValue</span>
-			
+
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
 					<div class="row">
@@ -388,35 +307,34 @@
 		}
 
 		function showNotification() {
-			console.log( "showNotification()" );
+			console.log("showNotification()");
 			var type = "[[${action}]]";
 			var msg = "[[${message}]]";
-			  console.log( $("#notificationType").text() + " - " + msg );
-			  
-			  
-			    $.notify({
-			      icon: "nc-icon nc-bell-55",
-			      message: msg
+			console.log($("#notificationType").text() + " - " + msg);
 
-			    }, {
-			      type: type,
-			      timer: 1000,
-			      placement: {
-			        from: 'top',
-			        align: 'right'
-			      }
-			    });
+			$.notify({
+				icon : "nc-icon nc-bell-55",
+				message : msg
+
+			}, {
+				type : type,
+				timer : 1000,
+				placement : {
+					from : 'top',
+					align : 'right'
+				}
+			});
 		}
 
 		$(document).ready(function() {
 			setFormValidation('#formName');
 
-			console.log( "Verificando mensaje" );
-			
+			console.log("Verificando mensaje");
+
 			var type = $("#notificationType").text();
-	    	if( type ){
-	    		showNotification();
-	        }
+			if (type) {
+				showNotification();
+			}
 		});
 	</script>
 </body>

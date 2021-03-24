@@ -87,9 +87,9 @@ public class CatalogoPantallaServiceImpl implements CatalogoPantallaService {
 				c.setLink(child.getLink());
 
 				listChild.add(c);
-
-				w.setChildren(listChild);
 			}
+
+			w.setChildren(listChild);
 
 			menus.add(w);
 		}

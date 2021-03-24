@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.bit.controllers.BaseController;
+
 @Controller
 @RequestMapping(value = "catalogs/catalog-habitant-type")
 //crea objeto de sesion
 @SessionAttributes("currentAdmin")
-public class CatalogoTipoHabitanteController {
+public class CatalogoTipoHabitanteController extends BaseController {
 
 	@Autowired
 	private CatalogoTipoHabitanteService catalogoTipoHabitanteService;
@@ -31,35 +33,40 @@ public class CatalogoTipoHabitanteController {
 
 		CatalogoTipoHabitanteView item = new CatalogoTipoHabitanteView();
 		model.addAttribute("item", item);
+		
+		putHierarchyOnModel(model, 18);
 
 		return "catalogs/template-catalog-habitant-type";
 	}
 
 	@PostMapping(value = "agregar")
-	public String guardarCatalogoTipoHabitante(Model model,
-			@ModelAttribute CatalogoTipoHabitanteView item, BindingResult errors,
-			RedirectAttributes redirectAttributes) {
+	public String guardarCatalogoTipoHabitante(Model model, @ModelAttribute CatalogoTipoHabitanteView item,
+			BindingResult errors, RedirectAttributes redirectAttributes) {
 
 		catalogoTipoHabitanteService.guardar(item);
-		
+
 		redirectAttributes.addFlashAttribute("action", "success");
 		redirectAttributes.addFlashAttribute("message", "El registro ha sido guardado correctamente");
 
+		putHierarchyOnModel(model, 18);
+		
 		return "redirect:list";
 	}
-	
+
 	@GetMapping(value = "list")
 	public String getCatalogoTipoHabitanteList(Model model, HttpServletRequest request) {
-		
+
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
-			String action = (String)inputFlashMap.get("action");
-			String message = (String)inputFlashMap.get("message");
+			String action = (String) inputFlashMap.get("action");
+			String message = (String) inputFlashMap.get("message");
 		}
-		
+
 		List<CatalogoTipoHabitanteView> list = catalogoTipoHabitanteService.list(null);
 		model.addAttribute("list", list);
-		
+
+		putHierarchyOnModel(model, 18);
+
 		return "catalogs/catalog-habitant-type-list";
 	}
 }

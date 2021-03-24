@@ -17,56 +17,58 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.bit.utils.ConviveUtils;
+import com.bit.controllers.BaseController;
 
 @Controller
 @RequestMapping(value = "catalogs/catalog-screen")
 //crea objeto de sesion
 @SessionAttributes("currentAdmin")
-public class CatalogoPantallaController {
-	
+public class CatalogoPantallaController extends BaseController {
+
 	@Autowired
 	private CatalogoPantallaService catalogoPantallaService;
-	
+
 	@GetMapping(value = "agregar")
 	public String getPantallaCatalogoPantalla(Model model) {
-		
+
 		CatalogoPantallaView item = new CatalogoPantallaView();
 		model.addAttribute("item", item);
 		
+		putHierarchyOnModel(model, 8);
+
 		return "catalogs/template-catalog-screen";
 	}
-	
+
 	@PostMapping(value = "agregar")
-	public String guardarCatalogoPantalla(Model model,
-			@ModelAttribute CatalogoPantallaView item, BindingResult errors,
+	public String guardarCatalogoPantalla(Model model, @ModelAttribute CatalogoPantallaView item, BindingResult errors,
 			RedirectAttributes redirectAttributes) {
-		
+
 		catalogoPantallaService.guardar(item);
-		
+
 		redirectAttributes.addFlashAttribute("action", "success");
 		redirectAttributes.addFlashAttribute("message", "El registro ha sido guardado correctamente");
 		
+		putHierarchyOnModel(model, 8);
+
 		return "redirect:list";
 	}
-	
+
 	@GetMapping(value = "list")
 	public String getCatalogoPantallaList(Model model, HttpServletRequest request) {
-		
+
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
-			String action = (String)inputFlashMap.get("action");
-			String message = (String)inputFlashMap.get("message");
-			
+			String action = (String) inputFlashMap.get("action");
+			String message = (String) inputFlashMap.get("message");
+
 			model.addAttribute("action", action);
 			model.addAttribute("message", message);
 		}
-		
-		
+
 		List<CatalogoPantallaView> list = catalogoPantallaService.list(null);
-		model.addAttribute( "list", list);
-		model.addAttribute( "menus", ConviveUtils.menus );
+		model.addAttribute("list", list);
 		
+		putHierarchyOnModel(model, 8);
 		
 		return "catalogs/catalog-screen-list";
 	}

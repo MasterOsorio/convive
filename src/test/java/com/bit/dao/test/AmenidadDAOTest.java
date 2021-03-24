@@ -10,8 +10,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.config.WebConfig;
-import com.bit.dao.AmenidadDAO;
-import com.bit.model.entities.Amenidad;
+import com.bit.management.amenities.Amenidad;
+import com.bit.management.amenities.AmenidadDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
